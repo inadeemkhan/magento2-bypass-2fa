@@ -23,7 +23,7 @@
 
 **Admin Configuration**  
 
-![Admin Configuration](https://github.com/inadeemkhan/magento2-csp-disable/blob/master/images/admin-config.png) 
+![Admin Configuration](https://github.com/inadeemkhan/magento2-bypass-2fa/blob/master/images/admin-config.png) 
 
 ---
 
