@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="devscripts_bypass2fa" translate="label" sortOrder="900" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Bypass 2FA</label>
+            <tab>devscripts</tab>
+            <resource>DevScripts_Bypass2FA::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1">
+                <label>General Settings</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1">
+                    <label>Enable Bypass</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="users" translate="label" type="multiselect" sortOrder="20" showInDefault="1">
+                    <label>Admin Users</label>
+                    <source_model>DevScripts\Bypass2FA\Model\Config\Source\AdminUsers</source_model>
+                    <comment>Select admin users for which 2FA will be bypassed.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
