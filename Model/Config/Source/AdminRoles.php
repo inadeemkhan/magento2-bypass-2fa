@@ -1,10 +1,10 @@
 <?php
 namespace DevScripts\Bypass2FA\Model\Config\Source;
 
-use Magento\User\Model\ResourceModel\User\CollectionFactory;
+use Magento\Authorization\Model\ResourceModel\Role\CollectionFactory;
 use Magento\Framework\Option\ArrayInterface;
 
-class AdminUsers implements ArrayInterface
+class AdminRoles implements ArrayInterface
 {
     private $collectionFactory;
 
@@ -16,8 +16,10 @@ class AdminUsers implements ArrayInterface
     public function toOptionArray()
     {
         $options = [];
-        foreach ($this->collectionFactory->create() as $user) {
-            $options[] = ['value' => $user->getUsername(), 'label' => $user->getUsername()];
+        foreach ($this->collectionFactory->create() as $role) {
+            if ($role->getRoleType() === 'G') {
+                $options[] = ['value' => $role->getId(), 'label' => $role->getRoleName()];
+            }
         }
         return $options;
     }

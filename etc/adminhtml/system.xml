@@ -2,21 +2,59 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <section id="devscripts_bypass2fa" translate="label" sortOrder="900" showInDefault="1" showInWebsite="0" showInStore="0">
+        <section id="devscripts_bypass2fa" translate="label" sortOrder="900"
+                 showInDefault="1" showInWebsite="0" showInStore="0">
             <label>Bypass 2FA</label>
             <tab>devscripts</tab>
             <resource>DevScripts_Bypass2FA::config</resource>
+
             <group id="general" translate="label" sortOrder="10" showInDefault="1">
                 <label>General Settings</label>
-                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1">
+                <field id="enable" type="select" sortOrder="10" showInDefault="1">
                     <label>Enable Bypass</label>
+                    <comment>
+                        Enable or disable the Two-Factor Authentication bypass functionality.
+                        When disabled, all settings below will be ignored.
+                    </comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="users" translate="label" type="multiselect" sortOrder="20" showInDefault="1">
+
+                <field id="users" type="multiselect" sortOrder="20" showInDefault="1">
                     <label>Admin Users</label>
+                    <comment>
+                        Select specific admin users who are allowed to bypass Two-Factor Authentication.
+                        Leave empty if not required.
+                    </comment>
                     <source_model>DevScripts\Bypass2FA\Model\Config\Source\AdminUsers</source_model>
-                    <comment>Select admin users for which 2FA will be bypassed.</comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
                 </field>
+
+                <field id="roles" type="multiselect" sortOrder="30" showInDefault="1">
+                    <label>Admin Roles</label>
+                    <comment>
+                        Select admin roles whose users can bypass Two-Factor Authentication.
+                        This applies to all users assigned to the selected roles.
+                    </comment>
+                    <source_model>DevScripts\Bypass2FA\Model\Config\Source\AdminRoles</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+
+                <field id="ips" type="text" sortOrder="40" showInDefault="1">
+                    <label>Allowed IPs</label>
+                    <comment>
+                        Enter allowed IP addresses or IP ranges (comma-separated).
+                        2FA bypass will apply only when the admin user logs in from these IPs.
+                        Example: 192.168.1.10, 10.0.0.0/24
+                    </comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+
             </group>
         </section>
     </system>
